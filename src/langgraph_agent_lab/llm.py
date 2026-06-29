@@ -33,6 +33,7 @@ def get_llm(model: str | None = None, temperature: float = 0.0):
             model=model or os.getenv("LLM_MODEL", "gemini-2.5-flash"),
             google_api_key=os.getenv("GEMINI_API_KEY"),
             temperature=temperature,
+            max_retries=6,  # backoff through transient 429 rate-limit spikes
         )
 
     if os.getenv("OPENAI_API_KEY"):
